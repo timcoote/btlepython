@@ -1,0 +1,16 @@
+Notes on the different python snippets, which were looking at different bluez api wrappers
+
+a.py - example pygatt program. does not work as the mac address of the simulator is not static
+b.py - Working example of using bluepy. Shows the messiness of using API constants: must be correct ones, used
+     - in the correct order to get any value. Original from http://bit.ly/2krYTul, but uses lessons from () to find the btle device.
+     - part way through working out how to interact with individual characteristics (commented out in this commit).
+     - includes the rather arbitrary code to get notifications of changes.
+v.py - example pygatt program. shows actual interaction with cli, and the opacity of some of the returned items if
+     - just viewed. Unclear on what this program iterates over in detail. Also in action it illustrates the asynchronous
+     - nature of the bluez ble api.
+w.py - failing api example: appears to not connect.
+x.py - first cut program to interact with bluetooth. Failed!
+y.py - pre-cursor to w.py, showing that a device with a mac address can be found
+z.py - early bluepy version that didn't include getting the device to notify updates.
+
+ww.py - original code that b.py was derived from

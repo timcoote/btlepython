@@ -1,6 +1,6 @@
-from gattlib import DiscoverService
+from gattlib import DiscoveryService
 
-service = DiscoverService ("hci0")
+service = DiscoveryService ("hci0")
 devices = service.discover (2)
 
 print ("here {} {}".format (service, devices))

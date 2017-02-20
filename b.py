@@ -14,7 +14,7 @@ class ScanDelegate(DefaultDelegate):
 
 class HRM(Peripheral):
     def __init__(self, addr):
-        print ("making a peripheral {}".format (addr))
+        print ("making an HRM at {}".format (addr))
         Peripheral.__init__(self, addr, addrType=ADDR_TYPE_RANDOM)
 
 if __name__=="__main__":
@@ -50,9 +50,9 @@ if __name__=="__main__":
                                       service.hndEnd)
             d, = [d for d in desc if d.uuid==cccid]
             print desc, dir (desc)
-            for d in desc:
-                print d, dir (d)
-            d, = [d for d in desc if d.uuid==AssignedNumbers.body_sensor_location]
+#            for d in desc:
+#                print d, dir (d)
+#            d, = [d for d in desc if d.uuid==AssignedNumbers.body_sensor_location]
 
             hrm.writeCharacteristic(d.handle, '\1\0')
 
