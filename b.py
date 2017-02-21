@@ -20,7 +20,8 @@ class HRM(Peripheral):
 if __name__=="__main__":
     cccid = AssignedNumbers.client_characteristic_configuration
     hrmid = AssignedNumbers.heart_rate
-    hrmmid = AssignedNumbers.heart_rate_measurement
+
+#    hrmmid = AssignedNumbers.heart_rate_measurement
 
     hrm = None
     scanner = Scanner ().withDelegate(ScanDelegate())
@@ -40,7 +41,7 @@ if __name__=="__main__":
         hrm = HRM(mac)
 
         service, = [s for s in hrm.getServices() if s.uuid==hrmid]
-        ccc, = service.getCharacteristics(forUUID=str(hrmmid))
+#        ccc, = service.getCharacteristics(forUUID=str(hrmmid))
 
         if 0: # This doesn't work
             ccc.write('\1\0')
@@ -49,7 +50,7 @@ if __name__=="__main__":
             desc = hrm.getDescriptors(service.hndStart,
                                       service.hndEnd)
             d, = [d for d in desc if d.uuid==cccid]
-            print desc, dir (desc)
+            print [x.uuid.getCommonName () for x in desc], dir (d), desc, dir (desc [0].uuid), desc [0].uuid
 #            for d in desc:
 #                print d, dir (d)
 #            d, = [d for d in desc if d.uuid==AssignedNumbers.body_sensor_location]
