@@ -1,0 +1,51 @@
+Discovered device 4a:1f:d1:00:30:f2
+Service <uuid=d0611e78-bbb4-4591-a5f8-487910ae4366 handleStart=10 handleEnd=14> :
+    Characteristic <8667556c-9a37-4c91-84ed-54ee27d90049>, hnd=0xb, supports NOTIFY WRITE EXTENDED PROPERTIES 
+Service <uuid=89d3502b-0f36-433a-8ef4-c502ad55f8dc handleStart=68 handleEnd=79> :
+    Characteristic <9b3c81d8-57b1-4a8a-b8df-0e56f7ca51c2>, hnd=0x45, supports NOTIFY WRITE EXTENDED PROPERTIES 
+    Characteristic <2f7cabce-808d-411f-9a0c-bb92ba96c102>, hnd=0x49, supports NOTIFY WRITE EXTENDED PROPERTIES 
+    Characteristic <c6b2f38c-23ab-46d8-a6ab-a3a870bbd5d7>, hnd=0x4d, supports READ WRITE EXTENDED PROPERTIES 
+Error: -> Error from Bluetooth stack (comerr)
+Service <uuid=Heart Rate handleStart=99 handleEnd=107> :
+    Characteristic <Body Sensor Location>, hnd=0x64, supports READ 
+    -> b''
+    Characteristic <Heart Rate Measurement>, hnd=0x66, supports NOTIFY 
+    Characteristic <Heart Rate Control Point>, hnd=0x69, supports WRITE EXTENDED PROPERTIES 
+Service <uuid=Generic Access handleStart=1 handleEnd=5> :
+    Characteristic <Device Name>, hnd=0x2, supports READ 
+    -> b'iPad'
+    Characteristic <Appearance>, hnd=0x4, supports READ 
+    -> b'\x80\x02'
+Service <uuid=Battery Service handleStart=43 handleEnd=46> :
+    Characteristic <Battery Level>, hnd=0x2c, supports NOTIFY READ 
+Error: -> Error from Bluetooth stack (comerr)
+Service <uuid=7905f431-b5ce-4e99-a40f-4b1e122d00d0 handleStart=58 handleEnd=67> :
+    Characteristic <69d1d8f3-45e1-49a8-9821-9bbdfdaad9d9>, hnd=0x3b, supports WRITE EXTENDED PROPERTIES 
+    Characteristic <9fbf120d-6301-42d9-8c58-25e699a21dbd>, hnd=0x3e, supports NOTIFY 
+    Characteristic <22eac6e9-24d6-4bb5-be44-b36ace7c7bfb>, hnd=0x41, supports NOTIFY 
+Service <uuid=Current Time Service handleStart=47 handleEnd=52> :
+    Characteristic <Current Time>, hnd=0x30, supports NOTIFY READ 
+Error: -> Error from Bluetooth stack (comerr)
+    Characteristic <Local Time Information>, hnd=0x33, supports READ 
+Error: -> Error from Bluetooth stack (comerr)
+Service <uuid=Device Information handleStart=80 handleEnd=98> :
+    Characteristic <System ID>, hnd=0x51, supports READ 
+    -> b''
+    Characteristic <Hardware Revision String>, hnd=0x53, supports READ 
+    -> b''
+    Characteristic <Model Number String>, hnd=0x55, supports READ 
+    -> b''
+    Characteristic <IEEE 11073-20601 Regulatory Certification Data List>, hnd=0x57, supports READ 
+    -> b''
+    Characteristic <PnP ID>, hnd=0x59, supports READ 
+    -> b''
+    Characteristic <Software Revision String>, hnd=0x5b, supports READ 
+    -> b''
+    Characteristic <Serial Number String>, hnd=0x5d, supports READ 
+    -> b''
+    Characteristic <Manufacturer Name String>, hnd=0x5f, supports READ 
+    -> b''
+    Characteristic <Firmware Revision String>, hnd=0x61, supports READ 
+    -> b''
+Service <uuid=Generic Attribute handleStart=6 handleEnd=9> :
+    Characteristic <Service Changed>, hnd=0x7, supports INDICATE 
