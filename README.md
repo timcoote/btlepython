@@ -55,6 +55,7 @@ cd to /home/olly, and then run python c.py, which will identify BT devices and t
 Errors
 ======
 just to note that the programs run with sudo, or you get this error:
+```
 [olly@linux ~]$ python3 c.py 
 Traceback (most recent call last):
   File "c.py", line 21, in <module>
@@ -66,3 +67,4 @@ Traceback (most recent call last):
   File "/usr/lib/python3.5/site-packages/bluepy/btle.py", line 240, in _mgmtCmd
     "Failed to execute mgmt cmd '%s'" % (cmd))
 bluepy.btle.BTLEException: Failed to execute mgmt cmd 'le on'
+```
