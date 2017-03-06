@@ -1,5 +1,5 @@
 # based on the test code at the bottom of bluepy/btle.py
-from bluepy.btle import Peripheral, DefaultDelegate, Scanner, ADDR_TYPE_RANDOM, AssignedNumbers, BTLEException
+from bluepy.btle import Peripheral, DefaultDelegate, Scanner, ADDR_TYPE_PUBLIC, ADDR_TYPE_RANDOM, AssignedNumbers, BTLEException
 
 import time
 
@@ -28,10 +28,15 @@ if __name__=="__main__":
 #        print (dev.__class__, mac)
 
     try:
-        conn = Peripheral (mac, ADDR_TYPE_RANDOM)
+        conn = Peripheral (mac, ADDR_TYPE_PUBLIC)
         conn.getServices ()  # needed to get the services property populated?
     except BTLEException:
-        pass
+        try:
+            conn = Peripheral (mac, ADDR_TYPE_RANDOM)
+            conn.getServices ()
+        except BTLEException as b:
+            print ("btle exception".format (b))
+
 
 #    print ("peripheral {}, services {}".format (conn, conn.services))
 

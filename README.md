@@ -15,7 +15,8 @@ b.py - Working example of using bluepy. Shows the messiness of using API constan
      - part way through working out how to interact with individual characteristics (commented out in this commit).
      - includes the rather arbitrary code to get notifications of changes.
 c.py - based on the btle.py test code, this iterates over the services and characteristics of the last found btle device.
-     - example output when interacting with a PT BLE Glucose monitor is provided in c.out
+     - example output when interacting with a PT BLE Glucose monitor is provided in c.out (from earlier version). Updated
+     - to cope with devices that are either RANDOM or PUBLIC mac addresses
 v.py - example pygatt program. shows actual interaction with cli, and the opacity of some of the returned items if
      - just viewed. Unclear on what this program iterates over in detail. Also in action it illustrates the asynchronous
      - nature of the bluez ble api.
