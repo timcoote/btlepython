@@ -14,6 +14,10 @@ b.py - Working example of using bluepy. Shows the messiness of using API constan
      - in the correct order to get any value. Original from http://bit.ly/2krYTul, but uses lessons from () to find the btle device.
      - part way through working out how to interact with individual characteristics (commented out in this commit).
      - includes the rather arbitrary code to get notifications of changes.
+     - this commit does have working notifications for the seat pad, for both python2 and python3. Returned values look arbitrary.
+     - had to faff with the returned handles to find the right one to write to to get the notification (base+2). Documentation on github
+     - indicated that it ought to be base+1 (!) This is confused further as the reported handle by bluetoothctl is 34 (dec) with a control
+     - handle of 35 (dec)!
 c.py - based on the btle.py test code, this iterates over the services and characteristics of the last found btle device.
      - example output when interacting with a PT BLE Glucose monitor is provided in c.out (from earlier version). Updated
      - to cope with devices that are either RANDOM or PUBLIC mac addresses
@@ -27,6 +31,63 @@ z.py - early bluepy version that didn't include getting the device to notify upd
 
 ww.py - original code that b.py was derived from
 ```
+
+Notes
+=====
+Something is confusing about setting up the notification code. According to various posts on the bluepy github site, the handle to write '\1\0'
+to is the next value after the handle reporting the characteristic (e.g. http://bit.ly/2mVdeBr). However, the code that works has to write to
+the value 2 more than the handle reportedly associated with the NOTIFY capability (see code in b.py). The actual handle for the seat up/down
+event is x21 or 33 dec, and the write works to x23/35.
+
+However, when interrogating the device using bluetoothctl (which uses the dbus interface, rather than the hcitool/gatttool interface used by
+bluepy), the handle that can be read which gives the status of the seat is x22. I'm not clear what handle x21 does:
+```
+[00:07:80:B4:61:40][LE]> primary
+attr handle: 0x0001, end grp handle: 0x0007 uuid: 00001800-0000-1000-8000-00805f9b34fb
+attr handle: 0x0008, end grp handle: 0x000b uuid: 00001809-0000-1000-8000-00805f9b34fb
+attr handle: 0x000c, end grp handle: 0x001b uuid: 0000180a-0000-1000-8000-00805f9b34fb
+attr handle: 0x001c, end grp handle: 0x001f uuid: 0000180f-0000-1000-8000-00805f9b34fb
+attr handle: 0x0020, end grp handle: 0xffff uuid: 79f7744a-f8e6-4810-8f16-140b6974835d
+[00:07:80:B4:61:40][LE]> char-read-uuid  79f7744a-f8e6-4810-8f16-140b6974835d
+Error: Read characteristics by UUID failed: No attribute found within the given range
+[00:07:80:B4:61:40][LE]> char-read-hnd 0x0020
+Characteristic value/descriptor: 5d 83 74 69 0b 14 16 8f 10 48 e6 f8 4a 74 f7 79 
+[00:07:80:B4:61:40][LE]> char-read-hnd 0x0021
+Characteristic value/descriptor: 12 22 00 2f a4 0d e9 4a aa 5f 98 0a 43 26 23 25 5f 69 64 
+[00:07:80:B4:61:40][LE]> char-read-hnd 0x0022
+Characteristic value/descriptor: 0f 53 
+[00:07:80:B4:61:40][LE]> char-read-hnd 0x0022
+Characteristic value/descriptor: 0f 53 
+[00:07:80:B4:61:40][LE]> char-write-req 0x0021 0x0100
+Error: Characteristic Write Request failed: Attribute can't be written
+[00:07:80:B4:61:40][LE]> char-write-req 0x0020 0x0100
+Error: Characteristic Write Request failed: Attribute can't be written
+[00:07:80:B4:61:40][LE]> char-write-req 0x0022 0x0100
+Error: Characteristic Write Request failed: Attribute can't be written
+[00:07:80:B4:61:40][LE]> char-read-hnd 0x0020
+Characteristic value/descriptor: 5d 83 74 69 0b 14 16 8f 10 48 e6 f8 4a 74 f7 79 
+[00:07:80:B4:61:40][LE]> char-read-hnd 0x0021
+Characteristic value/descriptor: 12 22 00 2f a4 0d e9 4a aa 5f 98 0a 43 26 23 25 5f 69 64 
+[00:07:80:B4:61:40][LE]> char-read-hnd 0x0022
+Characteristic value/descriptor: 0f 53 
+[00:07:80:B4:61:40][LE]> char-write-req 0x0023 0x0100
+Error: Characteristic Write Request failed: Attribute value length is invalid
+[00:07:80:B4:61:40][LE]> char-write-req 0x0023 0x10
+Characteristic value was written successfully
+[00:07:80:B4:61:40][LE]> char-read-hnd 0x0022
+Characteristic value/descriptor: 0f 53 
+[00:07:80:B4:61:40][LE]> char-read-hnd 0x0022
+Characteristic value/descriptor: 2d 53 
+[00:07:80:B4:61:40][LE]> char-write-req 0x0023 0100
+Characteristic value was written successfully
+Notification handle = 0x0022 value: 0f 53 
+Notification handle = 0x0022 value: 2d 53 
+Notification handle = 0x0022 value: 0f 53 
+Notification handle = 0x0022 value: 2d 53 
+```
+
+Maybe I need to check more carefully what I'm looking at here and query bluepy as to what's happening.
+
 Environment
 ===========
 this code was built on Fedora 25 and is likely to have dependencies on that repo. Below, I try to identify specific dependencies that
